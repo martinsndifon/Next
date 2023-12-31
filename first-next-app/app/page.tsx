@@ -1,8 +1,6 @@
 import Link from 'next/link';
-import postgres from 'postgres';
+import sql from './database';
 import { Suspense } from 'react';
-
-const sql = postgres(process.env.DATABASE_URL!);
 
 type QuizType = {
   id: number;
@@ -15,7 +13,7 @@ async function Quizzes() {
   return (
     <ul>
       {quizzes.map((quiz) => (
-        <li key={quiz.id}>
+        <li key={quiz.id} className='underline'>
           <Link href={`/quiz/${quiz.id}`}>{quiz.title}</Link>
         </li>
       ))}
@@ -26,7 +24,7 @@ async function Quizzes() {
 export default function Home() {
   return (
     <section>
-      <h1>All Quizzes</h1>
+      <h1 className='text-2xl font-semibold'>All Quizzes</h1>
       <Suspense fallback={<p>Loading...</p>}>
         <Quizzes />
       </Suspense>
